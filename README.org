@@ -1,0 +1,13 @@
+* Managing dotfiles with GNU Stow
+1. Create a directory with the name of the program you want to version control (e.g. ~.dotfiles/git~)
+2. Create a backup of the files (recommended)
+3. Move the files into the directory (e.g. ~mv ~/.gitconfig ~/.dotfiles/git~)
+4. Symlink files with Stow (~stow git~)
+5. Repeat the process to all the necessary files
+6. Commit and push to remote (e.g ~git add .~ ~git commit -m ""~ ~git push~)
+
+#+begin_quote
+Always run Stow commands from your dotfiles root. In this case, ~.dotfiles~.
+#+end_quote
+
+Also, if you symlinked somethings that should not be symlinked, undo it with ~stow D <dir>~.
