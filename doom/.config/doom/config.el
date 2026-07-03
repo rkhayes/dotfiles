@@ -3,6 +3,7 @@
   `(tab-bar :foreground ,(doom-color 'bg))
   `(internal-border :foreground ,(doom-color 'bg))
   `(mode-line-active :background ,(doom-color 'red) :foreground ,(doom-color 'bg))
+  `(mode-line :background ,(doom-color 'red) :foreground ,(doom-color 'bg))
   `(doom-modeline-evil-normal-state :foreground ,(doom-color 'bg))
   `(doom-modeline-evil-insert-state :foreground ,(doom-color 'bg))
   `(doom-modeline-evil-visual-state :foreground ,(doom-color 'bg))
@@ -19,6 +20,7 @@
   `(doom-modeline-bar :foreground ,(doom-color 'bg))
   `(doom-modeline-buffer-major-mode :foreground ,(doom-color 'bg) :weight bold)
   `(doom-modeline-urgent :foreground ,(doom-color 'bg))
+  `(doom-modeline-workspace-name :foreground ,(doom-color 'bg))
   `(doom-modeline-warning :foreground ,(doom-color 'bg)))
 
 (custom-theme-set-faces! 'doom-nord
@@ -58,6 +60,16 @@
          :right-divider-width 16))
 (spacious-padding-mode 1)
 
+(setq doom-modeline-height 15)
+
+(setq eros-eval-result-prefix "↪ ")
+
+;; Correct icon association for .m files (presume Matlab)
+(after! nerd-icons
+  (when-let ((matlab-icon (assoc "matlab" nerd-icons-extension-icon-alist)))
+    (setcdr (assoc "m" nerd-icons-extension-icon-alist)
+            (cdr matlab-icon))))
+
 ;; Credits: https://github.com/tecosaur/emacs-config/blob/master/config.org
 (setq-default
  delete-by-moving-to-trash t                      ; Delete files to trash
@@ -76,8 +88,19 @@
 (display-time-mode 1)                             ; Enable time in the mode-line
 (global-subword-mode 1)                           ; Iterate through CamelCase words
 
-(setq evil-vsplit-window-right t
-      evil-split-window-below t)
+(after! evil
+  (setq evil-ex-substitute-global nil
+        evil-move-cursor-back nil
+        evil-kill-on-visual-paste nil
+        evil-vsplit-window-right t
+        evil-split-window-below t))
+
+;; Don't let projectile add Emacs packages repos to the projects list
+(setq projectile-ignored-projects
+      (list "~/" "/tmp" (expand-file-name "straight/repos" doom-local-dir)))
+(defun projectile-ignored-project-function (filepath)
+  "Return t if FILEPATH is within any of `projectile-ignored-projects'"
+  (or (mapcar (lambda (p) (string-prefix-p p filepath)) projectile-ignored-projects)))
 
 ;; Prompts for buffer to open on new Evil splits
 (defadvice! prompt-for-buffer (&rest _)
@@ -110,6 +133,12 @@
 (setq org-directory "/Documents/org/")
 (setq org-return-follows-link t)
 
+(after! elcord
+  (setq elcord-use-major-mode-as-main-icon nil
+        elcord-show-small-icon t
+        elcord-editor-icon "doom_cute_icon"
+        elcord-idle-message "AFK")
+  (elcord-mode))
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `with-eval-after-load' block, otherwise Doom's defaults may override your
 ;; settings. E.g.

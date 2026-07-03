@@ -9,8 +9,13 @@
 ;; Let's deactivate Solaire mode to get the original feel of our theme:
 (package! solaire-mode :disable t)
 
+;; Remove some extra typing delay from actions caused by the package
+(package! evil-scape :disable t)
+
+;; Simplify the management of paddings on the interface
 (package! spacious-padding)
 
+(package! elcord)
 ;; To install a package directly from a remote git repo, you must specify a
 ;; `:recipe'. You'll find documentation on what `:recipe' accepts here:
 ;; https://github.com/radian-software/straight.el#the-recipe-format
