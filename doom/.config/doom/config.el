@@ -119,16 +119,14 @@
 (setq better-jumper-context 'window)
 (setq better-jumper-new-window-behavior 'copy)
 
-(map! :n [mouse-8] #'tab-bar-switch-to-next-tab
-      :n [mouse-9] #'tab-bar-switch-to-prev-tab)
-
 (map! :n "M-]" #'tab-bar-switch-to-next-tab
       :n "M-[" #'tab-bar-switch-to-prev-tab
       :i "M-]" #'tab-bar-switch-to-next-tab
-      :i "M-[" #'tab-bar-switch-to-prev-tab)
-
-(map! :n "C-x p s" #'project-shell)
-(map! :n "C-c C-p p" #'run-python)
+      :i "M-[" #'tab-bar-switch-to-prev-tab
+      :n "C-x p s" #'project-shell
+      :n "C-c C-p p" #'run-python
+      :n [mouse-8] #'tab-bar-switch-to-next-tab
+      :n [mouse-9] #'tab-bar-switch-to-prev-tab)
 
 ;; Define user information
 (setq user-full-name "Diogo Bonofre"
