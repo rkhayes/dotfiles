@@ -122,6 +122,14 @@
 (map! :n [mouse-8] #'tab-bar-switch-to-next-tab
       :n [mouse-9] #'tab-bar-switch-to-prev-tab)
 
+(map! :n "M-]" #'tab-bar-switch-to-next-tab
+      :n "M-[" #'tab-bar-switch-to-prev-tab
+      :i "M-]" #'tab-bar-switch-to-next-tab
+      :i "M-[" #'tab-bar-switch-to-prev-tab)
+
+(map! :n "C-x p s" #'project-shell)
+(map! :n "C-c C-p p" #'run-python)
+
 ;; Define user information
 (setq user-full-name "Diogo Bonofre"
       user-mail-address "diogobonofre@gmail.com")
@@ -137,8 +145,9 @@
   (setq elcord-use-major-mode-as-main-icon nil
         elcord-show-small-icon t
         elcord-editor-icon "doom_cute_icon"
-        elcord-idle-message "AFK")
-  (elcord-mode))
+        elcord-idle-message "AFK"))
+
+(elcord-mode)
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `with-eval-after-load' block, otherwise Doom's defaults may override your
 ;; settings. E.g.
